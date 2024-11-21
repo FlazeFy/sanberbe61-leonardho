@@ -2,6 +2,7 @@ import express from "express";
 import categoryController from "../controllers/category.controller";
 import authController from "../controllers/auth.controller";
 import authMiddleware from "../middlewares/auth.middleware";
+import productsController from "../controllers/products.controller";
 
 const router = express.Router();
 
@@ -17,5 +18,12 @@ router.post("/auth/login", authController.login);
 router.post("/auth/register", authController.register);
 router.get("/auth/me", authMiddleware, authController.my_profile);
 router.put("/auth/update-profile", authMiddleware, authController.profile);
+
+// Product
+router.get("/products", productsController.findAll);
+router.post("/products", productsController.create);
+router.get("/products/:id", productsController.findOne);
+router.put("/products/:id", productsController.update);
+router.delete("/products/:id", productsController.delete);
 
 export default router;
