@@ -58,6 +58,7 @@ export const me = async (userId: string): Promise<User> => {
   }
   return user;
 };
+
 export const updateProfile = async (userId: ObjectId, updateUserData: User) => {
   const result = await UserModel.findByIdAndUpdate(
     userId,

@@ -14,3 +14,8 @@ export const findProductToOrder = async (product_id: Types.ObjectId, qty_order: 
     const price = product ? product.price : null
     return { exist, qty, price }
 };
+
+export const findOrderDetailByOrderId = async (order_id: string): Promise<OrderDetail[]> => {
+    const result = await OrderDetailModel.find({ orderId: order_id })
+    return result
+}

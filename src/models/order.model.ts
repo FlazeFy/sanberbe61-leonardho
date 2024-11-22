@@ -13,6 +13,9 @@ export interface Order {
     status: OrderStatus,
     createdBy: Types.ObjectId;
 }
+export interface OrderUpdateGrandTotal {
+    grandTotal: number;
+}
 
 const OrdersSchema = new Schema<Order>(
     {

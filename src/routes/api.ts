@@ -31,5 +31,7 @@ router.delete("/products/:id", productsController.delete);
 // Order
 router.post("/order", [authMiddleware, rbacMiddleware(["user"])], orderController.createOrder);
 router.post("/order/:order_id", [authMiddleware, rbacMiddleware(["user"])], orderController.createOrderDetail);
+router.get("/order/:order_id", [authMiddleware, rbacMiddleware(["user"])], orderController.getMyOrderHistory);
+router.get("/order", [authMiddleware, rbacMiddleware(["user","admin"])], orderController.getAllOrderHistory);
 
 export default router;
