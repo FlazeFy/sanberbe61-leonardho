@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { create, findAll, findOne, update, remove} from "../services/product.service";
+import { create, findAll, findOne, remove, updateProduct} from "../services/product.service";
 import { IPaginationQuery } from "../utils/interfaces";
 
 export default {
@@ -64,7 +64,7 @@ export default {
   },
   async update(req: Request, res: Response) {
     try {
-      const result = await update(req.params?.id, req.body);
+      const result = await updateProduct(req.params?.id, req.body);
 
       res.status(200).json({
         data: result,

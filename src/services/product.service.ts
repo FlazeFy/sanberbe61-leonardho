@@ -1,4 +1,4 @@
-import ProductsModel, { Product } from "../models/products.model";
+import ProductsModel, { Product, ProductUpdateQty } from "../models/products.model";
 
 export const create = async (payload: Product): Promise<Product> => {
   const result = await ProductsModel.create(payload);
@@ -29,10 +29,10 @@ export const findOne = async (id: string): Promise<Product | null> => {
   return result;
 };
 
-export const update = async (
+export const updateProduct = async (
   id: string,
-  payload: Product
-): Promise<Product | null> => {
+  payload: Product | ProductUpdateQty
+): Promise<Product | ProductUpdateQty | null> => {
   const result = await ProductsModel.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });

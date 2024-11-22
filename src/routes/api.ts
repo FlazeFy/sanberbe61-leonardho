@@ -3,6 +3,8 @@ import categoryController from "../controllers/category.controller";
 import authController from "../controllers/auth.controller";
 import authMiddleware from "../middlewares/auth.middleware";
 import productsController from "../controllers/products.controller";
+import orderController from "../controllers/order.controller";
+import rbacMiddleware from "../middlewares/rbac.middleware";
 
 const router = express.Router();
 
@@ -25,5 +27,9 @@ router.post("/products", productsController.create);
 router.get("/products/:id", productsController.findOne);
 router.put("/products/:id", productsController.update);
 router.delete("/products/:id", productsController.delete);
+
+// Order
+router.post("/order", [authMiddleware, rbacMiddleware(["user"])], orderController.createOrder);
+router.post("/order/:order_id", [authMiddleware, rbacMiddleware(["user"])], orderController.createOrderDetail);
 
 export default router;

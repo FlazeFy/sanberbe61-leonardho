@@ -12,6 +12,10 @@ export interface Product {
   _id?: Types.ObjectId;
 }
 
+export interface ProductUpdateQty {
+  qty: number;
+}
+
 const Schema = mongoose.Schema;
 
 const ProductsSchema = new Schema<Product>(
