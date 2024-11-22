@@ -12,9 +12,13 @@ export interface Order {
     grandTotal: number;
     status: OrderStatus,
     createdBy: Types.ObjectId;
+    items?: Types.ObjectId;
 }
 export interface OrderUpdateGrandTotal {
     grandTotal: number;
+}
+export interface OrderUpdateStatus {
+    status: OrderStatus,
 }
 
 const OrdersSchema = new Schema<Order>(
@@ -35,8 +39,15 @@ const OrdersSchema = new Schema<Order>(
     },
     {
         timestamps: true,
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
     }
 );
+OrdersSchema.virtual("items", {
+    ref: "OrdersDetails", 
+    localField: "_id", 
+    foreignField: "orderId", 
+});
 
 const OrderModel = mongoose.model("Orders", OrdersSchema);
 

@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import OrderModel, { Order, OrderUpdateGrandTotal } from "../models/order.model";
+import OrderModel, { Order, OrderUpdateGrandTotal, OrderUpdateStatus } from "../models/order.model";
 
 export const create = async (payload: Order): Promise<Order> => {
     const result = await OrderModel.create(payload);
@@ -16,8 +16,8 @@ export const findWaitingPaymentOrderByUserId = async (user_id: Types.ObjectId): 
 
 export const updateOrder = async (
     id: string,
-    payload: Order | OrderUpdateGrandTotal
-): Promise<Order | OrderUpdateGrandTotal | null> => {
+    payload: Order | OrderUpdateGrandTotal | OrderUpdateStatus
+): Promise<Order | OrderUpdateGrandTotal | OrderUpdateStatus | null> => {
     const result = await OrderModel.findOneAndUpdate({ _id: id }, payload, {
       new: true,
     });
@@ -38,7 +38,16 @@ export const findAllOrOne = async (
         .limit(limit)
         .skip((page - 1) * limit)
         .sort({ createdAt: -1 })
-        .populate("createdBy");
+        .populate("createdBy", "_id username email") 
+        .populate({
+            path: "items",
+            model: "OrdersDetails", 
+            populate: {
+                path: "productId", 
+                model: "Products",
+                select: "_id name category"
+            },
+        });
     
     return result;
 };

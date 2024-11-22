@@ -20,6 +20,7 @@ const OrdersSchema = new Schema<OrderDetail>(
         qty: {
             type: Schema.Types.Number,
             required: true,
+            min: [1, "Minimum order is 1 item"],
         },
         orderId: {
             type: Schema.Types.ObjectId,
