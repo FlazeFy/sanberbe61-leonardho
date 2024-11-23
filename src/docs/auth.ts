@@ -85,7 +85,7 @@
  *                 type: string
  *                 example: "user"
  *     responses:
- *       201:
+ *       200:
  *         description: Registration successful
  *         content:
  *           application/json:
