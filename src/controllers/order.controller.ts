@@ -9,6 +9,9 @@ import { updateProduct, findOne } from "../services/product.service";
 import { me } from "../services/auth.service";
 import { Types } from "mongoose";
 import { IPaginationQuery } from "../utils/interfaces";
+import { sendEmail } from "../mailers/mailer";
+import path from "path";
+import ejs from "ejs";
 
 export default {
     async createOrder(req: IRequestWithUser, res: Response) {
@@ -36,6 +39,7 @@ export default {
                         let msg = "Success create order"
                         if(list_item != null && Array.isArray(list_item)){
                             msg += ". with item "
+                            let list_founded_product = []
                             for (const el of list_item) {
                                 const product_id = el.product_id
                                 const qty = el.qty
@@ -55,6 +59,11 @@ export default {
                                         const order_detail = await createOrderDetail(order_detail_data)
                                         if (order_detail && order_id) {
                                             msg += `${check_product.name}, `
+                                            list_founded_product.push({
+                                                name : check_product.name,
+                                                qty : qty,
+                                                price : check_product.price
+                                            })
 
                                             // Update product avaiablity
                                             const remaining_stock = check_product.qty - qty
@@ -73,6 +82,37 @@ export default {
                                         }
                                     }
                                 }
+                            }
+
+                            // Mailer receipt
+                            const user = await me(user_id.toString())
+                            if(user && user.email){
+                                // Render EJS template
+                                const templatePath = path.join(__dirname, "../mailers/invoice.ejs");
+                                const orderDetails = list_founded_product.map((item: any) => ({
+                                    name: item.name,
+                                    quantity: item.qty,
+                                    price: item.price,
+                                    total: item.qty * item.price,
+                                }));
+                                const grandTotal = orderDetails.reduce((sum, item) => sum + item.total, 0);
+
+                                const emailHtml = await ejs.renderFile(templatePath, {
+                                    customerName: user.fullName,
+                                    orderItems: orderDetails,
+                                    grandTotal,
+                                    contactEmail: "newbie8801@gmail.com",
+                                    companyName: "Sanbercode",
+                                    year: new Date().getFullYear(),
+                                });
+
+                                // Send Email
+                                await sendEmail(
+                                    user.email,
+                                    "Order Receipt",
+                                    "Thank you for your order!",
+                                    emailHtml
+                                );
                             }
                         }
 
