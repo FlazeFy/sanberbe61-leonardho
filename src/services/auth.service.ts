@@ -15,12 +15,12 @@ export const login = async (payload: ILoginPayload): Promise<string> => {
   });
 
   if (!userByEmail) {
-    return Promise.reject(new Error("email: user not found"));
+    return Promise.reject(new Error("email or password is wrong"));
   }
   const validatePassword: boolean = encrypt(password) === userByEmail.password;
 
   if (!validatePassword) {
-    return Promise.reject(new Error("password: user not found"));
+    return Promise.reject(new Error("email or password is wrong"));
   }
 
   const token = generateToken({
