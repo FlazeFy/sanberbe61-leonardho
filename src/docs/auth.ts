@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /api/v1/auth/login:
+ * /api/auth/login:
  *   post:
  *     summary: Login to the Apps using email and password. Session expired in 3 hours 
  *     tags: [Auth]
@@ -52,7 +52,7 @@
 
 /**
  * @swagger
- * /api/v1/auth/register:
+ * /api/auth/register:
  *   post:
  *     summary: Register a new user account
  *     tags: [Auth]
@@ -126,7 +126,7 @@
 
 /**
  * @swagger
- * /api/v1/auth/me:
+ * /api/auth/me:
  *   get:
  *     summary: Fetch current user's profile
  *     tags: [Auth]
@@ -174,7 +174,7 @@
 
 /**
  * @swagger
- * /api/v1/auth/update-profile:
+ * /api/auth/update-profile:
  *   put:
  *     summary: Update current user's profile
  *     tags: [Auth]

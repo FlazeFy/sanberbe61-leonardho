@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /categories:
+ * /api/categories:
  *   get:
  *     summary: Get all categories
  *     tags: [Category]
@@ -38,7 +38,7 @@
 
 /**
  * @swagger
- * /categories:
+ * /api/categories:
  *   post:
  *     summary: Create a new category
  *     tags: [Category]
@@ -79,7 +79,7 @@
 
 /**
  * @swagger
- * /categories/{id}:
+ * /api/categories/{id}:
  *   get:
  *     summary: Get a single category by ID
  *     tags: [Category]
@@ -117,7 +117,7 @@
 
 /**
  * @swagger
- * /categories/{id}:
+ * /api/categories/{id}:
  *   put:
  *     summary: Update a category by ID
  *     tags: [Category]
@@ -165,7 +165,7 @@
 
 /**
  * @swagger
- * /categories/{id}:
+ * /api/categories/{id}:
  *   delete:
  *     summary: Delete a category by ID
  *     tags: [Category]
