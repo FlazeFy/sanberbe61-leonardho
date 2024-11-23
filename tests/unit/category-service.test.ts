@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import CategoryModel, { Category } from "../../src/models/category.model";
-import { create, findAll, findOne, update, remove } from "../../src/services/category.service";
-import { query } from "express";
+import { create,  findOne, update, remove } from "../../src/services/category.service";
 
 jest.mock("../../src/models/category.model");
 

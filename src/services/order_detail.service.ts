@@ -11,8 +11,8 @@ export const findProductToOrder = async (product_id: Types.ObjectId, qty_order: 
     const product = await findOne(product_id.toString())
     const exist = product ? true : false
     const qty = product ? product.qty : 0
-    const price = product ? product.price : null
-    const name = product ? product.name : null
+    const price = product?.price ?? null
+    const name = product?.name ?? null
     return { exist, qty, price, name }
 };
 

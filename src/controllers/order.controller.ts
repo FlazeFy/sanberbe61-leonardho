@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { OrderStatus, Order, OrderUpdateGrandTotal, OrderUpdateStatus } from "../models/order.model";
 import { findWaitingPaymentOrderByUserId, create, updateOrder, findAllOrOne } from "../services/order.service";
-import { ProductUpdateQty } from "../models/products.model";
+import { Product } from "../models/products.model";
 import { findProductToOrder, createOrderDetail, findOrderDetailByOrderId, deleteOrderDetailByOrderId } from "../services/order_detail.service";
 import { IRequestWithUser } from "../middlewares/auth.middleware";
 import { OrderDetail } from "../models/order_detail.model";
@@ -58,7 +58,7 @@ export default {
 
                                             // Update product avaiablity
                                             const remaining_stock = check_product.qty - qty
-                                            const remaining_product: ProductUpdateQty = {
+                                            const remaining_product: Product = {
                                                 qty: remaining_stock
                                             }
                                             const update_product = await updateProduct(product_id,remaining_product)
@@ -130,7 +130,7 @@ export default {
                         if(order_detail){
                             // Update product avaiablity
                             const remaining_stock = check_product.qty - qty
-                            const remaining_product: ProductUpdateQty = {
+                            const remaining_product: Product = {
                                 qty: remaining_stock
                             }
                             const update_product = await updateProduct(product_id,remaining_product)
@@ -258,7 +258,7 @@ export default {
                                 console.log(product)
                                 if(product){
                                     const remaining_stock = el.qty + product?.qty
-                                    const remaining_product: ProductUpdateQty = {
+                                    const remaining_product: Product = {
                                         qty: remaining_stock
                                     }
                                     await updateProduct(product_id,remaining_product)

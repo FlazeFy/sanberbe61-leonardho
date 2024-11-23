@@ -31,8 +31,8 @@ export const findOne = async (id: string): Promise<Product | null> => {
 
 export const updateProduct = async (
   id: string,
-  payload: Product | ProductUpdateQty
-): Promise<Product | ProductUpdateQty | null> => {
+  payload: Product
+): Promise<Product | null> => {
   const result = await ProductsModel.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
